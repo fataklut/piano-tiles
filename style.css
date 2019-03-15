@@ -1,0 +1,40 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+#container {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: center;
+    align-content: center;
+    background: linear-gradient(0deg, #D90429 10%, #2B2D42 90%);
+}
+#game {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 85vh;
+    width: 40vw;
+    border-radius: 30px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #D90429 10%, #2B2D42 90%);
+}
+#game > div {
+    position: relative;
+}
+#score {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    text-align: center;
+}
+
+/* for mobile */
+@media only screen and (max-width: 768px) {
+    #game {
+      height: 100vh;
+      width: 100vw;
+      border-radius: 0;
+    }
+}
+
