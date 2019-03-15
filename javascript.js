@@ -15,6 +15,7 @@ let index = {
 for (let i = 0; i < 4; i++) {
     let divEl = document.createElement("div")
     divEl.style.height = "100%"
+    divEl.id = i
     game.appendChild(divEl)
 }
 
@@ -55,28 +56,43 @@ function Note() {
         }
     }
 }
-
+window.addEventListener("click", e => {
+    if  (!running) {
+        startGame()
+    } else {
+        let lane = e.target.parentNode.id
+        if (lane.length == 1) {
+            inputHandle(lane)
+        } else {
+            resetGame()
+        }
+    }
+})
 window.addEventListener("keydown", e => {
     if (!running && e.key == " ") {
         startGame()
     } else if (keys.includes(e.key)) {
         let lane = index[e.key]
-        if (notes.length != 0) {
-            let found = false
-            for (let i = 0; i < notes.length; i++) {
-                if (notes[i].color == "black" && !found) {
-                    found = true
-                    if (notes[i].lane == lane) {
-                        notes[i].color = "gray"
-                        score++
-                    } else {
-                        resetGame()
-                    }
+        inputHandle(lane)
+    }
+})
+function inputHandle(lane) {
+    console.log(lane)
+    if (notes.length != 0) {
+        let found = false
+        for (let i = 0; i < notes.length; i++) {
+            if (notes[i].color == "black" && !found) {
+                found = true
+                if (notes[i].lane == lane) {
+                    notes[i].color = "gray"
+                    score++
+                } else {
+                    resetGame()
                 }
             }
         }
     }
-})
+}
 
 function startGame() {
     running = true
