@@ -1,14 +1,15 @@
 let game = document.getElementById("game")
+let speed = 0.5
 let running = false
 let score = 0
 let attemptStop = false
 let notes = []
-let keys = "dfjk"
+let keys = "fghj"
 let index = {
-    d: 0,
-    f: 1,
-    j: 2,
-    k: 3,
+    f: 0,
+    g: 1,
+    h: 2,
+    j: 3,
 }
 
 for (let i = 0; i < 4; i++) {
@@ -20,10 +21,13 @@ for (let i = 0; i < 4; i++) {
 function Note() {
     this.noteLength = 20
     this.color = "black"
+    this.lane = Math.floor(Math.random() * 4)
     let different = false
-    while (different) {
-        if (notes[length - 1].lane == this.lane) {
+    while (!different && notes.length != 0) {
+        if (notes[notes.length - 1].lane == this.lane) {
             this.lane = Math.floor(Math.random() * 4)
+        } else {
+            different = true
         }
     }
     this.div
@@ -40,12 +44,14 @@ function Note() {
         rndLane.appendChild(divEl)
     }
     this.create()
+    this.hasCreated = false
     this.update = function () {
-        this.noteTop++
+        this.noteTop += speed
         this.div.style.top = `${this.noteTop}%`
         this.div.style.backgroundColor = this.color
-        if (this.noteTop == 0) {
+        if (this.noteTop > 0 && !this.hasCreated) {
             notes.push(new Note())
+            this.hasCreated = true
         }
     }
 }
@@ -77,12 +83,12 @@ function startGame() {
     // clear current game
     notes.forEach(e => { e.div.style.display = "none" })
     score = 0
-    let interval = setInterval(() => {
+    let gameInterval = setInterval(() => {
         document.getElementById("score").innerHTML = score
-        window.onkeydown = e => { if (e.key == " ") { clearInterval(interval); running = false } }
+        window.onkeydown = e => { if (e.key == "s") { clearInterval(gameInterval); running = false } }
         if (attemptStop) {
             attemptStop = false
-            clearInterval(interval)
+            clearInterval(gameInterval)
         }
         if (notes.length == 0) {
             notes.push(new Note())
@@ -95,7 +101,17 @@ function startGame() {
                 }
             })
         }
+
     }, 10)
+    let timeInterval = setInterval(() => {
+        speed += 0.1
+        console.log(speed)
+        if (notes[0].div.style.backgroundColor = "red") {
+            clearInterval(timeInterval)
+            console.log("stopepd")
+        }
+
+    }, 5000);
 }
 
 function resetGame() {
@@ -103,6 +119,7 @@ function resetGame() {
         e.div.style.transition = "1s"
         e.color = "red"
     })
+    speed = 0.5
     attemptStop = true
     running = false
 }
