@@ -4,12 +4,12 @@ let running = false
 let score = 0
 let attemptStop = false
 let notes = []
-let keys = "fghj"
+let keys = "dfjk"
 let index = {
-    f: 0,
-    g: 1,
-    h: 2,
-    j: 3,
+    d: 0,
+    f: 1,
+    j: 2,
+    k: 3,
 }
 
 for (let i = 0; i < 4; i++) {
@@ -83,6 +83,7 @@ function startGame() {
     // clear current game
     notes.forEach(e => { e.div.style.display = "none" })
     score = 0
+    speed = 0.5
     let gameInterval = setInterval(() => {
         document.getElementById("score").innerHTML = score
         window.onkeydown = e => { if (e.key == "s") { clearInterval(gameInterval); running = false } }
@@ -103,23 +104,16 @@ function startGame() {
         }
 
     }, 10)
-    let timeInterval = setInterval(() => {
-        speed += 0.1
-        console.log(speed)
-        if (notes[0].div.style.backgroundColor = "red") {
-            clearInterval(timeInterval)
-            console.log("stopepd")
-        }
-
-    }, 5000);
 }
+let timeInterval = setInterval(() => {
+    speed += 0.1
+}, 5000)
 
 function resetGame() {
     notes.forEach(e => {
         e.div.style.transition = "1s"
         e.color = "red"
     })
-    speed = 0.5
     attemptStop = true
     running = false
 }
