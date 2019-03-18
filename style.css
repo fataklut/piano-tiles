@@ -28,9 +28,20 @@ html, body {
     color: white;
     text-align: center;
 }
+#scoreMobile {
+    display: none;
+    text-align: center;
+    color: white;
+}
 
 /* for mobile */
 @media only screen and (max-width: 768px) {
+    #score {
+        display: none;
+    }
+    #scoreMobile {
+        display: block;
+    }
     #game {
       height: 100vh;
       width: 100vw;
