@@ -57,7 +57,7 @@ function Note() {
     }
 }
 window.addEventListener("click", e => {
-    if  (!running) {
+    if (!running) {
         startGame()
     } else {
         let lane = e.target.parentNode.id
