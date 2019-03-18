@@ -16,6 +16,7 @@ for (let i = 0; i < 4; i++) {
     let divEl = document.createElement("div")
     divEl.style.height = "100%"
     divEl.id = i
+    divEl.className = "lane"
     game.appendChild(divEl)
 }
 function Note() {
@@ -36,6 +37,7 @@ function Note() {
         let rndLane = game.childNodes[this.lane]
         let divEl = document.createElement("div")
         this.div = divEl
+        divEl.className = "note"
         divEl.style.backgroundColor = this.color
         divEl.style.height = `${this.noteLength}%`
         divEl.style.width = "100%"
@@ -59,7 +61,12 @@ window.addEventListener("click", e => {
     if (!running) {
         startGame()
     } else {
-        let lane = e.target.parentNode.id
+        let lane
+        if (e.target.className == "note") {
+            lane = e.target.parentNode.id
+        } else if (e.target.className == "lane") {
+            lane = e.target.id
+        }
         if (lane.length == 1) {
             inputHandle(lane)
         } else {
@@ -71,7 +78,12 @@ window.addEventListener("touchstart", e => {
     if (!running) {
         startGame()
     } else {
-        let lane = e.target.parentNode.id
+        let lane
+        if (e.target.className == "note") {
+            lane = e.target.parentNode.id
+        } else if (e.target.className == "lane") {
+            lane = e.target.id
+        }
         if (lane.length == 1) {
             inputHandle(lane)
         } else {
