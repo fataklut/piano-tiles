@@ -18,7 +18,6 @@ for (let i = 0; i < 4; i++) {
     divEl.id = i
     game.appendChild(divEl)
 }
-
 function Note() {
     this.noteLength = 20
     this.color = "black"
@@ -57,7 +56,19 @@ function Note() {
     }
 }
 window.addEventListener("click", e => {
-    if  (!running) {
+    if (!running) {
+        startGame()
+    } else {
+        let lane = e.target.parentNode.id
+        if (lane.length == 1) {
+            inputHandle(lane)
+        } else {
+            resetGame()
+        }
+    }
+})
+window.addEventListener("touchstart", e => {
+    if (!running) {
         startGame()
     } else {
         let lane = e.target.parentNode.id
