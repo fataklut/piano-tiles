@@ -55,6 +55,11 @@ function Note() {
             notes.push(new Note())
             this.hasCreated = true
         }
+        if (this.noteTop >= 100) {
+            if (this.color == "black") {
+                resetGame()
+            }
+        }
     }
 }
 window.addEventListener("click", e => {
@@ -100,7 +105,6 @@ window.addEventListener("keydown", e => {
     }
 })
 function inputHandle(lane) {
-    console.log(lane)
     if (notes.length != 0) {
         let found = false
         for (let i = 0; i < notes.length; i++) {
@@ -135,7 +139,7 @@ function startGame() {
         } else {
             notes.forEach(e => {
                 e.update()
-                if (e.noteTop == 100) {
+                if (e.noteTop >= 100) {
                     game.childNodes[e.lane].removeChild(game.childNodes[e.lane].firstChild)
                     notes.splice(e, 1)
                 }
